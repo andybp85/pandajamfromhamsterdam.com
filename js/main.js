@@ -62,7 +62,6 @@ $(function () {
             dates = [],
             allmetaByDate = {};
 
-        jam_list.append('<img id="loading-jams" src="//pandajamfromhamsterdam.com/img/loading7_gray.gif" />');
 
         alldata.response.docs.forEach(function (d) {
             $.getJSON('https://archive.org/metadata/' + d.identifier, function (onedata) {
