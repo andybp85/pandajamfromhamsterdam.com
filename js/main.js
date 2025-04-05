@@ -26,13 +26,13 @@ $(function(){
 
     if (callback != null)
       setTimeout(callback, 500);
-   
+
   }
 
   sizes(null, function(){
     $('#music_background').css('border-top', '2px solid #555');
     $('#home_content').css('display','block');
-  }); 
+  });
 
   $( window ).resize(sizes);
 
@@ -54,7 +54,7 @@ $(function(){
       $('#home_content').css('display','block');
 
     } else {
-      
+
         $('#home_content').css('display','none');
         jamplayer.html('');
         jamplayer.html('<iframe src="https://archive.org/embed/' + window.location.hash.substr(1) + '&playlist=1" width="' + (window.innerHeight < 600 ? 300 : 350) + '" height="' + (window.innerHeight < 600 ? 200 : 300) + '" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen></iframe>');
@@ -72,7 +72,7 @@ $(function(){
   }
 }
 
-  $.getJSON( 'https://archive.org/advancedsearch.php?q=creator%3A%22PandaJAM+From+HamsterDAM%22&fl%5B%5D=identifier&sort%5B%5D=date+desc&sort%5B%5D=&sort%5B%5D=&rows=500&page=1&output=json&callback=?', function(alldata) {
+  $.getJSON( 'https://archive.org/advancedsearch.php?q=creator%3A%22PandaJAM+From+HamsterDAM%22&fl%5B%5D=identifier&sort%5B%5D=date+desc&sort%5B%5D=&sort%5B%5D=&rows=500&page=1&output=json', function(alldata) {
 
     var jam_list = $('#jam_list'),
       dates = [],
@@ -87,7 +87,7 @@ $(function(){
 //           jam_list.append('<li class="jam_link"><a href="#' + onedata.metadata.identifier + '">' + onedata.metadata.date + '</a></li>' );
 //         } else {
 //           $('.jam_link').each(function() {
-//             if (onedata.metadata.date < this.innerText) 
+//             if (onedata.metadata.date < this.innerText)
 //               $(this).before('<li class="jam_link"><a href="#' + onedata.metadata.identifier + '">' + onedata.metadata.date + '</a></li>' );
 //           });
 //         }
@@ -102,7 +102,7 @@ $(function(){
           $('ul#jam_list').removeClass('loading');
 
           dates.sort();
-          
+
           for (var i = dates.length; i > 0 ; i--) {
               jam_list.append('<li class="jam_link"><a href="#' + allmetaByDate[dates[i-1]].identifier + '">' + dates[i-1] + '</a><div class="jam_seperator"></div></li>' );
             }
@@ -110,11 +110,11 @@ $(function(){
           if (window.location.hash !== "") {
             loadContent();
           }
-          
+
         }
-        
+
       });
-     
+
     });
 
   });
