@@ -1,93 +1,101 @@
-$(function () {
-    function sizes(e, callback) {
-        var wrapper = $('#wrapper'),
-            logo = $('#logo'),
-            logo_from = $('#logo_from'),
-            marginSize = $('#inner_header').height() + (window.innerWidth < 440 ? 10 : 30 + $('#menu-row').height());
+// PandaJAM archive: one search call fetches every jam's identifier, date, and
+// description, so the sidebar renders as the list streams in instead of waiting
+// on a metadata request per jam. Descriptions ride along, so selecting a jam
+// needs no further network round-trip.
 
-        wrapper.height(window.innerHeight);
+const searchUrl = () => {
+    const params = new URLSearchParams()
+    params.set('q', 'creator:"PandaJAM From HamsterDAM"')
+    params.append('fl[]', 'identifier')
+    params.append('fl[]', 'date')
+    params.append('fl[]', 'description')
+    params.append('sort[]', 'date desc')
+    params.set('rows', '500')
+    params.set('output', 'json')
+    return `https://archive.org/advancedsearch.php?${params}`
+}
 
-        $('#music_background').css({
-            'margin-top': marginSize,
-            'height': this.innerHeight - marginSize - 25
-        });
+const descriptions = new Map()
 
-        if (window.innerWidth > 768 && wrapper.hasClass('toggled'))
-            wrapper.removeClass('toggled');
+const wrapper = document.querySelector('#wrapper')
+const homeContent = document.querySelector('#home_content')
+const jamplayer = document.querySelector('#jamplayer')
+const jamdeetz = document.querySelector('#jamdeetz')
 
-        if (callback != null)
-            setTimeout(callback, 500);
-    }
+const renderJamLink = ({date, identifier}) => {
+    const link = document.createElement('a')
+    link.href = `#${identifier}`
+    link.textContent = date.slice(0, 10)
 
-    sizes(null, function () {
-        $('#music_background').css('border-top', '2px solid #555');
-        $('#home_content').css('display', 'block');
-    });
+    const separator = document.createElement('div')
+    separator.className = 'jam_seperator'
 
-    $(window).resize(sizes);
+    const item = document.createElement('li')
+    item.className = 'jam_link'
+    item.append(link, separator)
+    return item
+}
 
-    var allmeta = {};
+const archiveEmbed = id => {
+    const short = window.innerHeight < 600
+    const iframe = document.createElement('iframe')
+    iframe.allowFullscreen = true
+    iframe.height = short ? 200 : 300
+    iframe.src = `https://archive.org/embed/${id}&playlist=1`
+    iframe.title = `PandaJAM ${id}`
+    iframe.width = short ? 300 : 350
+    iframe.addEventListener('load', () => jamplayer.classList.remove('loading'))
+    return iframe
+}
 
-    function loadContent(e) {
+const showHome = () => {
+    jamplayer.replaceChildren()
+    jamplayer.classList.remove('loading')
+    jamdeetz.replaceChildren()
+    homeContent.hidden = false
+}
 
-        var jamplayer = $('#jamplayer'),
-            jamdeetz = $('#jamdeetz'),
-            wrapper = $('#wrapper');
+const showJam = id => {
+    homeContent.hidden = true
+    jamplayer.classList.add('loading')
+    jamplayer.replaceChildren(archiveEmbed(id))
+    jamdeetz.innerHTML = descriptions.get(id) ?? ''
+}
 
-        if (wrapper.hasClass('toggled'))
-            wrapper.removeClass('toggled');
+const route = () => {
+    const id = location.hash.slice(1)
+    wrapper.classList.remove('toggled')
+    if (id && id !== 'menu-toggle') showJam(id)
+    else showHome()
+}
 
-        if (window.location.hash.substring(1) === "") {
-            jamplayer.html('');
-            jamdeetz.html('');
-            jamplayer.removeClass('loading');
-            $('#home_content').css('display', 'block');
-        } else {
-            $('#home_content').css('display', 'none');
-            jamplayer.html('');
-            jamplayer.html('<iframe src="https://archive.org/embed/' + window.location.hash.substr(1) + '&playlist=1" width="' + (window.innerHeight < 600 ? 300 : 350) + '" height="' + (window.innerHeight < 600 ? 200 : 300) + '" frameborder="0" webkitallowfullscreen="true" mozallowfullscreen="true" allowfullscreen></iframe>');
-
-            jamplayer.addClass('loading');
-            jamplayer.children('iframe').load(function (e) {
-                jamplayer.removeClass('loading');
-            });
-            jamdeetz.html(allmeta[window.location.hash.substr(1)].description);
-            $('#music_background_inner').css('height', jamplayer.innerHeight() + jamdeetz.innerHeight() + 60);
+const loadJams = async () => {
+    const list = document.querySelector('#jam_list')
+    const loading = document.querySelector('#loading-jams')
+    try {
+        const res = await fetch(searchUrl())
+        if (!res.ok) throw new Error(`archive.org search returned ${res.status}`)
+        const {response} = await res.json()
+        for (const doc of response.docs) {
+            descriptions.set(doc.identifier, doc.description ?? '')
+            list.append(renderJamLink(doc))
         }
+        list.classList.remove('loading')
+        loading.remove()
+        if (location.hash.slice(1)) route()
+    } catch (err) {
+        console.error('Failed to load jams', err)
+        loading.textContent = 'Could not load jams. Try again later.'
     }
+}
 
-    $.getJSON('https://archive.org/advancedsearch.php?q=creator%3A%22PandaJAM+From+HamsterDAM%22&fl%5B%5D=identifier&sort%5B%5D=date+desc&sort%5B%5D=&sort%5B%5D=&rows=500&page=1&output=json', function (alldata) {
+document.querySelector('#year').textContent = new Date().getFullYear()
 
-        var jam_list = $('#jam_list'),
-            dates = [],
-            allmetaByDate = {};
+document.querySelector('#menu-toggle').addEventListener('click', e => {
+    e.preventDefault()
+    wrapper.classList.toggle('toggled')
+})
 
+window.addEventListener('hashchange', route)
 
-        alldata.response.docs.forEach(function (d) {
-            $.getJSON('https://archive.org/metadata/' + d.identifier, function (onedata) {
-
-                allmeta[d.identifier] = onedata.metadata;
-                allmetaByDate[onedata.metadata.date] = onedata.metadata;
-                dates.push(onedata.metadata.date);
-
-                if (alldata.response.docs.length === dates.length) {
-
-                    $('#loading-jams').remove();
-                    $('ul#jam_list').removeClass('loading');
-
-                    dates.sort();
-
-                    for (var i = dates.length; i > 0; i--) {
-                        jam_list.append('<li class="jam_link"><a href="#' + allmetaByDate[dates[i - 1]].identifier + '">' + dates[i - 1] + '</a><div class="jam_seperator"></div></li>');
-                    }
-
-                    if (window.location.hash !== "") {
-                        loadContent();
-                    }
-                }
-            });
-        });
-    });
-
-    $(window).bind('hashchange', loadContent);
-});
+loadJams()
