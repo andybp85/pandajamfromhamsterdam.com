@@ -74,6 +74,8 @@ body {
     flex: 0 0 auto;
     inline-size: 0;
     overflow: hidden;
+    /* Containing block for the loading veil, so a closed drawer clips it away. */
+    position: relative;
     transition: inline-size 0.5s ease;
 
     #jam_list {
@@ -180,6 +182,7 @@ body {
     padding: 6px 12px;
     position: fixed;
     text-decoration: none;
+    top: 10px;
     z-index: 10000;
 }
 
