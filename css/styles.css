@@ -253,7 +253,7 @@ span.bold {
 /* Main scroll area */
 #music_background {
     /* cover + fixed keeps the decorative image filling the panel as it scales, with no bare gutter. */
-    background: url('/img/background.jpg') center / cover no-repeat fixed;
+    background: url('/img/background.jpg') center / contain no-repeat fixed;
     background-color: var(--bg);
     border-top: 2px solid #555;
     flex: 1 1 auto;
