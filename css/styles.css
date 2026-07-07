@@ -76,7 +76,7 @@ body {
     transition: inline-size 0.5s ease;
 
     #jam_list {
-        background: url('/img/sidebar_background.jpg') cover;
+        background: url('/img/sidebar_background.jpg') left top / cover no-repeat;
         block-size: 100%;
         list-style: none;
         margin: 0;
@@ -241,7 +241,8 @@ span.bold {
 
 /* Main scroll area */
 #music_background {
-    background: url('/img/background.jpg') no-repeat 110% 90% fixed;
+    /* cover + fixed keeps the decorative image filling the panel as it scales, with no bare gutter. */
+    background: url('/img/background.jpg') center / cover no-repeat fixed;
     background-color: var(--bg);
     border-top: 2px solid #555;
     flex: 1 1 auto;
