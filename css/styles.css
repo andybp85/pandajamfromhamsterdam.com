@@ -266,9 +266,9 @@ span.bold {
 }
 
 #youtube {
+    aspect-ratio: 16 / 9;
     border: 0;
-    min-height: 300px;
-    min-width: 100%;
+    width: clamp(320px, 100%, 600px);
 }
 
 /* Archive.org player: loading gif behind the embed until the iframe loads. */
