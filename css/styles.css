@@ -209,6 +209,7 @@ h3#logo {
     line-height: 66px;
     margin-bottom: 20px;
     margin-right: 5%;
+    margin-top: 20px;
     z-index: 100;
 
     span#logo_from {
@@ -220,7 +221,7 @@ h3#logo {
         line-height: 0.9em;
         position: absolute;
         text-indent: -5px;
-        top: 1.8em;
+        top: 2.8em;
         width: 1px;
     }
 
