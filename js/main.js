@@ -41,7 +41,7 @@ const archiveEmbed = id => {
     const iframe = document.createElement('iframe')
     iframe.allowFullscreen = true
     iframe.height = short ? 200 : 300
-    iframe.src = `https://archive.org/embed/${id}&playlist=1`
+    iframe.src = `https://archive.org/embed/${id}?playlist=1`
     iframe.title = `PandaJAM ${id}`
     iframe.width = short ? 300 : 350
     iframe.addEventListener('load', () => jamplayer.classList.remove('loading'))
