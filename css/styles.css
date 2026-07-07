@@ -62,8 +62,6 @@ body {
     background-color: var(--bg);
     display: flex;
     height: 100dvh;
-    margin-inline: auto;
-    max-width: 1000px;
     overflow: hidden;
     position: relative;
 }
@@ -187,6 +185,8 @@ body {
     margin: 0;
     padding-bottom: 10px;
     padding-top: 20px;
+    /* Positioning context for the absolutely-placed "from" in the logo. */
+    position: relative;
 
     a {
         color: var(--ink);
@@ -337,10 +337,6 @@ footer {
 
     #menu-row {
         height: 0;
-    }
-
-    #inner_header {
-        padding-top: 0;
     }
 }
 
