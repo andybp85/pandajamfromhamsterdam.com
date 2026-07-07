@@ -62,6 +62,9 @@ body {
     background-color: var(--bg);
     display: flex;
     height: 100dvh;
+    /* Reveal the body texture as a left gutter that grows past 1000px, echoing the
+       old centered layout, while the content still bleeds to the right edge. */
+    margin-left: max(0px, calc((100vw - 1000px) / 2));
     overflow: hidden;
     position: relative;
 }
@@ -168,10 +171,10 @@ body {
 }
 
 #menu-toggle {
-    background: #fff;
-    border: 1px solid #ccc;
+    background: #1a1a1a;
+    border: 1px solid #555;
     border-radius: 4px;
-    color: #333;
+    color: var(--ink-bright);
     font-family: system-ui, sans-serif;
     font-size: 14px;
     padding: 6px 12px;
