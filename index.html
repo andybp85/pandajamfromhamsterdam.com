@@ -4,127 +4,88 @@
 <head>
 
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
-    <meta name="description"
-          content="Welcome to the archives for the PandaJAM from Hamsterdam, the weekly Wednesday Night Open Jam at Sticks & Stones, Hawthorne, NJ!">
-    <meta name="author" content="PandaJAM from HamsterDAM">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta content="Welcome to the archives for the PandaJAM from Hamsterdam, the weekly Wednesday Night Open Jam at Sticks &amp; Stones, Hawthorne, NJ!" name="description">
+    <meta content="PandaJAM from HamsterDAM" name="author">
+    <meta content="#000000" name="theme-color">
 
     <title>PandaJAM from HamsterDAM</title>
 
-    <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/styles.css" rel="stylesheet">
 
-    <!-- Custom CSS -->
-    <link href="https://fonts.googleapis.com/css?family=Rock+Salt|Shadows+Into+Light+Two" rel="stylesheet">
-    <link href="css/simple-sidebar.css" rel="stylesheet">
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <script async data-id="101482004" src="//static.getclicky.com/js"></script>
+    <script async data-id="101482004" src="https://static.getclicky.com/js"></script>
 </head>
 
 <body>
 
-<div id="wrapper" class="container">
-    <div class="row">
+<div id="wrapper">
 
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <ul id="jam_list" class="sidebar-nav scrollbar-dynamic loading">
-                <li class="sidebar-brand">
-                    <h1>Jams</h1>
-                    <h2 style="margin-left: 10px" id="loading-jams">Loading takes a while...</h2>
-<!--                    <img id="loading-jams" src="//pandajamfromhamsterdam.com/img/loading7_gray.gif" />-->
-                </li>
-            </ul>
+    <!-- Sidebar: jam list -->
+    <nav id="sidebar-wrapper">
+        <ul class="loading" id="jam_list">
+            <li class="sidebar-brand">
+                <h1>Jams</h1>
+                <h2 id="loading-jams">Loading jams&hellip;</h2>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Page content -->
+    <div id="page-content-wrapper">
+
+        <div id="menu-row">
+            <a class="btn" href="#menu-toggle" id="menu-toggle">Jams Archive</a>
         </div>
-        <!-- /#sidebar-wrapper -->
 
-        <!-- Page Content -->
-        <div id="page-content-wrapper">
-            <!-- Make sure to keep all page content within the #page-content-wrapper -->
-            <div id="inner-wrapper">
-                <div id="menu-row" class="row">
-                    <a href="#menu-toggle" class="btn btn-default spacer" id="menu-toggle">Jams Archive</a>
-                </div>
-                <div id="inner_header" class="row">
-                    <div class="col-lg-9">
-
-                        <a href="#"><h3 id="logo">
-                            <span class="logo_space">&nbsp;</span>PandaJAM<span class="logo_space">&nbsp;</span>
-                            <span id="logo_from">from</span><br>
-                            HamsterDAM</h3></a>
-
-                    </div>
-                    <div class="col-lg-3">
-                        <div id="info">
-                            <span class="bold">Thank You!</span><br>
-                            <span id="info_address">
-									We couldn't have<br>
-									done it without<br>
-									all of you!
-								</span>
-                        </div>
-
-                    </div>
-                </div>
-                <div id="music_background" class="row">
-                    <div id="music_background_inner" class="col-lg-12 scrollbar-dynamic">
-                        <div class="panel-body" id="jamplayer"></div>
-                        <div class="panel-body" id="home_content">
-                            <h2>Welcome to the Archives!</h2>
-                            <!-- <p>There's also the
-                        <a href="https://www.facebook.com/groups/243196689200797/">Facebook Group!</a>
-                        </p> -->
-
-
-                            <p style="font-size: .5em">
-                                For the band, see <a href="https://archive.org/details/PandaJAM">PandaJAM on
-                                Archive.org</a>
-                            </p>
-
-                        </div>
-                        <div class="panel-body" id="jamdeetz">
-                            <iframe src="https://www.youtube.com/embed/videoseries?list=PL6lC-uALf0Fsrqllucxx4nty1GWbXQpFI&rel=0"
-                                    frameborder="0" allowfullscreen style="min-height:300px;min-width:100%;"></iframe>
-                        </div>
-                    </div>
-                </div>
+        <header id="inner_header">
+            <a href="#">
+                <h3 id="logo">
+                    <span class="logo_space">&nbsp;</span>PandaJAM<span class="logo_space">&nbsp;</span>
+                    <span id="logo_from">from</span><br>
+                    HamsterDAM</h3>
+            </a>
+            <div id="info">
+                <span class="bold">Thank You!</span><br>
+                <span id="info_address">
+                    We couldn't have<br>
+                    done it without<br>
+                    all of you!
+                </span>
             </div>
-        </div>
-        <!-- /#page-content-wrapper -->
+        </header>
+
+        <main id="music_background">
+            <div id="music_background_inner">
+                <div id="jamplayer"></div>
+                <div id="home_content">
+                    <h2>Welcome to the Archives!</h2>
+                    <p class="archive-link">
+                        For the band, see <a href="https://archive.org/details/PandaJAM">PandaJAM on Archive.org</a>
+                    </p>
+                    <iframe
+                        allowfullscreen
+                        id="youtube"
+                        src="https://www.youtube.com/embed/videoseries?list=PL6lC-uALf0Fsrqllucxx4nty1GWbXQpFI&rel=0"
+                        title="PandaJAM YouTube playlist">
+                    </iframe>
+                </div>
+                <div id="jamdeetz"></div>
+            </div>
+        </main>
+
     </div>
+
 </div>
-<!-- /#wrapper -->
 
 <footer>
-    &copy;<script>document.write(new Date().getFullYear())</script>
-    PandaJAM from HampsterDAM
-    <a style="float: right; margin-right: 10px;" title="GDPR-compliant Web Analytics"
-       href="https://clicky.com/101482004"><img alt="Clicky" src="//static.getclicky.com/media/links/badge.gif"
-                                                border="0"/></a>
+    &copy;<span id="year"></span>
+    PandaJAM from HamsterDAM
+    <a href="https://clicky.com/101482004" title="GDPR-compliant Web Analytics">
+        <img alt="Clicky" src="https://static.getclicky.com/media/links/badge.gif">
+    </a>
 </footer>
 
-<!-- jQuery -->
-<script src="js/jquery.js"></script>
-
-<!-- Bootstrap Core JavaScript -->
-<script src="js/bootstrap.min.js"></script>
-
-<!-- Menu Toggle Script -->
-<script>
-    $("#menu-toggle").click(function (e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
-</script>
-
-<script type="text/javascript" src="js/main.js"></script>
+<script src="/js/main.js" type="module"></script>
 
 </body>
 

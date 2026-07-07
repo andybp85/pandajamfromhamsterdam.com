@@ -1,0 +1,410 @@
+/* PandaJAM from HamsterDAM — archive site */
+
+@font-face {
+    font-display: swap;
+    font-family: 'Rock Salt';
+    font-style: normal;
+    font-weight: 400;
+    src: url('/fonts/rock-salt-latin.woff2') format('woff2');
+}
+
+@font-face {
+    font-display: swap;
+    font-family: 'Shadows Into Light Two';
+    font-style: normal;
+    font-weight: 400;
+    src: url('/fonts/shadows-into-light-two-latin.woff2') format('woff2');
+}
+
+:root {
+    --bg: #000;
+    --font-display: 'Rock Salt', cursive;
+    --font-hand: 'Shadows Into Light Two', cursive;
+    --ink: #999;
+    --ink-bright: #bbb;
+    --sidebar-width: 225px;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    background-color: var(--bg);
+    background-image: url('/img/body_background.jpg');
+    background-position-x: -57px;
+    background-repeat: no-repeat;
+    color: var(--ink);
+    font-family: var(--font-hand);
+    font-size: 28px;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+/* Scrollbars are hidden throughout; content is short and the chrome is distracting. */
+* {
+    scrollbar-width: none;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* Shell: sidebar + content, with a fixed footer pinned across the bottom. */
+#wrapper {
+    background-color: var(--bg);
+    display: flex;
+    height: 100dvh;
+    margin-inline: auto;
+    max-width: 1000px;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Sidebar */
+#sidebar-wrapper {
+    flex: 0 0 auto;
+    inline-size: 0;
+    overflow: hidden;
+    transition: inline-size 0.5s ease;
+
+    #jam_list {
+        background: url('/img/sidebar_background.jpg') cover;
+        block-size: 100%;
+        list-style: none;
+        margin: 0;
+        overflow-y: auto;
+        padding: 0 0 40px;
+    }
+
+    li {
+        width: var(--sidebar-width);
+    }
+
+    a {
+        color: var(--ink-bright);
+        display: block;
+        letter-spacing: 0.1em;
+        text-decoration: none;
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: #ddd;
+        }
+    }
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    inline-size: var(--sidebar-width);
+    border-right: 3px solid #555;
+}
+
+.sidebar-brand {
+    font-size: 18px;
+    height: 65px;
+    line-height: 60px;
+    margin-bottom: 2em;
+    margin-top: 26px;
+}
+
+#jam_list h1 {
+    color: var(--ink-bright);
+    font-size: 3.5em;
+    margin-left: 0.3em;
+    padding-right: 30px;
+}
+
+#loading-jams {
+    margin-left: 10px;
+    width: 210px;
+}
+
+/* Dark veil over the sidebar while the jam list loads. */
+#jam_list.loading::before {
+    background-color: rgba(0, 0, 0, 0.7);
+    content: "";
+    height: 2000px;
+    position: absolute;
+    width: var(--sidebar-width);
+}
+
+.jam_link {
+    cursor: pointer;
+    font-size: 1em;
+    text-align: center;
+
+    a {
+        color: var(--ink);
+        font-family: var(--font-hand);
+        font-size: 1.3em;
+        line-height: 1.8em;
+        text-shadow: -1px -1px 0 #888, 1px -1px 0 #888, -1px 1px 0 #888, 1px 1px 3px #000;
+    }
+}
+
+.jam_seperator {
+    border-top: 3px solid rgba(255, 255, 255, 0.1);
+    margin: 0 auto;
+    width: 50%;
+}
+
+/* Content column */
+#page-content-wrapper {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-inline-size: 0;
+    overflow: hidden;
+    padding-inline: 20px;
+}
+
+#menu-row {
+    height: 20px;
+}
+
+#menu-toggle {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #333;
+    font-family: system-ui, sans-serif;
+    font-size: 14px;
+    padding: 6px 12px;
+    position: fixed;
+    text-decoration: none;
+    z-index: 10000;
+}
+
+/* Header: logo + thank-you note */
+#inner_header {
+    margin: 0;
+    padding-bottom: 10px;
+    padding-top: 20px;
+
+    a {
+        color: var(--ink);
+        text-decoration: none;
+    }
+}
+
+h1 {
+    font-family: var(--font-display);
+    font-size: 68px;
+    text-shadow: 2px 2px 3px #333;
+}
+
+h3#logo {
+    color: var(--ink);
+    float: left;
+    font-family: var(--font-display);
+    font-size: 2.1em;
+    letter-spacing: 4px;
+    line-height: 66px;
+    margin-bottom: 20px;
+    margin-right: 5%;
+    z-index: 100;
+
+    span#logo_from {
+        display: block;
+        float: right;
+        font-size: 0.4em;
+        left: 18.5em;
+        letter-spacing: 1px;
+        line-height: 0.9em;
+        position: absolute;
+        text-indent: -5px;
+        top: 1.8em;
+        width: 1px;
+    }
+
+    span.logo_space {
+        font-size: 0.3em;
+    }
+}
+
+#info {
+    font-size: 0.8em;
+    line-height: 1.6em;
+    width: 105%;
+}
+
+span.bold {
+    font-size: 1.3em;
+}
+
+/* Main scroll area */
+#music_background {
+    background: url('/img/background.jpg') no-repeat 110% 90% fixed;
+    background-color: var(--bg);
+    border-top: 2px solid #555;
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding-top: 20px;
+}
+
+#music_background_inner {
+    padding-block-end: 40px;
+}
+
+#youtube {
+    border: 0;
+    min-height: 300px;
+    min-width: 100%;
+}
+
+/* Archive.org player: loading gif behind the embed until the iframe loads. */
+#jamplayer.loading {
+    background-image: url('/img/loading7_gray.gif');
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: 250px;
+    height: 300px;
+    width: 350px;
+
+    &::before {
+        background-color: rgba(0, 0, 0, 0.7);
+        content: "";
+        height: 300px;
+        position: absolute;
+        width: 350px;
+    }
+}
+
+#jamdeetz {
+    max-width: 550px;
+    padding-bottom: 50px;
+
+    /* Descriptions arrive as archive.org HTML; force them into the site's voice. */
+    span,
+    div,
+    b,
+    p,
+    a {
+        background-color: transparent !important;
+        color: var(--ink) !important;
+        font-family: var(--font-hand) !important;
+        font-size: 24px !important;
+        line-height: 40px !important;
+    }
+
+    div {
+        line-height: 28px !important;
+    }
+}
+
+footer {
+    background: linear-gradient(#444, #222);
+    bottom: 0;
+    font-family: var(--font-hand);
+    font-size: 0.4em;
+    height: 25px;
+    line-height: 2.1em;
+    position: fixed;
+    text-align: center;
+    width: 100%;
+    z-index: 10000;
+
+    a {
+        float: right;
+        margin-right: 10px;
+    }
+}
+
+/* Desktop: sidebar shown by default; the toggle collapses it. */
+@media (min-width: 770px) {
+    #sidebar-wrapper {
+        border-left: 2px solid #555;
+        border-right: 2px solid #555;
+        inline-size: var(--sidebar-width);
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        border-right: none;
+        inline-size: 0;
+    }
+
+    #menu-toggle {
+        display: none;
+    }
+
+    #menu-row {
+        height: 0;
+    }
+
+    #inner_header {
+        padding-top: 0;
+    }
+}
+
+@media (max-width: 1200px) {
+    #info_address {
+        display: none;
+    }
+}
+
+@media (max-width: 555px) {
+    h3#logo {
+        font-size: 1.5em;
+        line-height: 50px;
+
+        span#logo_from {
+            left: 19.5em;
+            top: 2em;
+        }
+    }
+}
+
+@media (max-width: 440px) {
+    #page-content-wrapper {
+        font-size: 18px;
+        padding-inline: 0;
+        width: 93%;
+    }
+
+    #menu-toggle {
+        margin-bottom: 10px;
+    }
+
+    #music_background_inner {
+        padding-left: 0;
+    }
+
+    h3#logo {
+        font-size: 1.6em;
+        line-height: 39px;
+        margin-top: 26px;
+
+        span#logo_from {
+            left: 21em;
+            top: 3.5em;
+        }
+    }
+
+    #jamdeetz,
+    #jamdeetz span,
+    #jamdeetz div,
+    #jamdeetz b,
+    #jamdeetz p {
+        font-size: 18px !important;
+    }
+
+    #info {
+        font-size: 0.4em;
+        line-height: 2.4em;
+        position: absolute;
+        right: 0;
+        top: -20px;
+        width: 119px;
+    }
+
+    span.bold {
+        font-size: 2.2em;
+    }
+}
