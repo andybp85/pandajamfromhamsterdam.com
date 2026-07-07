@@ -279,14 +279,6 @@ span.bold {
     background-size: 250px;
     height: 300px;
     width: 350px;
-
-    &::before {
-        background-color: rgba(0, 0, 0, 0.7);
-        content: "";
-        height: 300px;
-        position: absolute;
-        width: 350px;
-    }
 }
 
 #jamdeetz {
