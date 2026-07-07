@@ -169,21 +169,20 @@ body {
 }
 
 #menu-row {
-    height: 20px;
+    padding-top: 10px;
 }
 
+/* In flow (not fixed) so it reserves space and pushes the logo down. */
 #menu-toggle {
     background: #1a1a1a;
     border: 1px solid #555;
     border-radius: 4px;
     color: var(--ink-bright);
+    display: inline-block;
     font-family: var(--font-display);
     font-size: 14px;
     padding: 6px 12px;
-    position: fixed;
     text-decoration: none;
-    top: 10px;
-    z-index: 10000;
 }
 
 /* Header: logo + thank-you note */
@@ -349,10 +348,11 @@ footer {
 
     #menu-row {
         height: 0;
+        padding-top: 0;
     }
 }
 
-@media (max-width: 740px) {
+@media (max-width: 944px) {
     #info {
         display: none;
     }
