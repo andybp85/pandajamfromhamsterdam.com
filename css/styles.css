@@ -177,7 +177,7 @@ body {
     border: 1px solid #555;
     border-radius: 4px;
     color: var(--ink-bright);
-    font-family: system-ui, sans-serif;
+    font-family: var(--font-display);
     font-size: 14px;
     padding: 6px 12px;
     position: fixed;
@@ -244,6 +244,11 @@ h3#logo {
 
 span.bold {
     font-size: 1.3em;
+}
+
+/* Narrow-screen replacement for the top-right thank-you, sits under the logo. */
+#thanks-below {
+    display: none;
 }
 
 /* Main scroll area */
@@ -347,9 +352,17 @@ footer {
     }
 }
 
-@media (max-width: 1200px) {
-    #info_address {
+@media (max-width: 740px) {
+    #info {
         display: none;
+    }
+
+    #thanks-below {
+        clear: left;
+        display: block;
+        font-family: var(--font-hand);
+        font-size: 1.3em;
+        padding-top: 10px;
     }
 }
 
@@ -397,18 +410,5 @@ footer {
     #jamdeetz b,
     #jamdeetz p {
         font-size: 18px !important;
-    }
-
-    #info {
-        font-size: 0.4em;
-        line-height: 2.4em;
-        position: absolute;
-        right: 0;
-        top: -20px;
-        width: 119px;
-    }
-
-    span.bold {
-        font-size: 2.2em;
     }
 }
